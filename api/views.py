@@ -8,7 +8,6 @@ from rest_framework.views import APIView
 
 
 class Employees(APIView):
-   
     def post(self, request):
         # emp=Employee()
         serializer = EmployeeSerializer(data=request.data)
@@ -24,27 +23,29 @@ class Employees(APIView):
         # return Response(emp)
 
     def get(self, request, pk=None):
-        data = Employee.objects.get(pk=pk)
-        serializer = EmployeeSerializer(data)
-        print(serializer)
+        if pk:
+            data = Employee.objects.get(id=pk)
+            serializer = EmployeeSerializer(data)
+        else:
+            data = Employee.objects.all()
+            serializer = EmployeeSerializer(data, many=True)
         return Response(serializer.data)
-  
-    def update(self, request, pk=None):
-        emp=Employee.objects.get(id=pk)
-        serializer=EmployeeSerializer(instance=emp, data=request.data)
-        
+
+    def put(self, request, pk=None):
+        emp = Employee.objects.filter(pk=pk)
+        serializer = EmployeeSerializer(instance=emp, data=request.data)
+
         if serializer.is_valid():
             serializer.save()
         return Response(serializer.data)
 
     def delete(self, request, pk=None):
-        emp=Employee.objects.get(id=pk)
+        emp = Employee.objects.get(id=pk)
         emp.delete()
-        return Response('deleted')
-    
-    
+        return Response("deleted")
+
+
 class Companies(APIView):
-    
     def post(self, request):
         # emp=Employee()
         serializer = CompanySerializer(data=request.data)
@@ -63,19 +64,16 @@ class Companies(APIView):
         data = Company.objects.get(pk=pk)
         serializer = CompanySerializer(data)
         return Response(serializer.data)
-  
-    def update(self, request, pk=None):
-        cmp=Company.objects.get(pk=pk)
-        serializer=CompanySerializer(instance=cmp, data=request.data)
-        
+
+    def put(self, request, pk=None):
+        cmp = Company.objects.get(pk=pk)
+        serializer = CompanySerializer(instance=cmp, data=request.data)
+
         if serializer.is_valid():
             serializer.save()
         return Response(serializer.data)
 
     def delete(self, request, pk=None):
-        emp=Company.objects.get(id=pk)
+        emp = Company.objects.get(id=pk)
         emp.delete()
-        return Response('deleted')
-    
-    
- 
+        return Response("deleted")
