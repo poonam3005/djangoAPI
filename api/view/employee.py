@@ -3,13 +3,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from api.serializers.employee import EmployeeSerializer, EmployeeSerializer1
+from django.http import HttpRequest, HttpResponse
 
 
 # Create your views here.
 
 
 class Employees(APIView):
-    def post(self, request):
+    def post(self, request: HttpRequest) -> HttpResponse:
 
         """Insert the employee data
         Args:
@@ -27,7 +28,7 @@ class Employees(APIView):
             content = {"data is not valid"}
             return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
-    def get(self, request, pk: int=None):
+    def get(self, request: HttpRequest, pk: int=None) -> HttpResponse:
 
         """Fetch the data of all employee or  particular company id
         Args:
@@ -50,7 +51,7 @@ class Employees(APIView):
             content = {"please enter valid id"}
             return Response(content, status=status.HTTP_404_NOT_FOUND)
 
-    def put(self, request, pk: int=None):
+    def put(self, request: HttpRequest, pk: int=None) -> HttpResponse:
 
         """Update the employee data using particular id
         Args:
@@ -73,7 +74,7 @@ class Employees(APIView):
             content = {"please enter valid id"}
             return Response(content, status=status.HTTP_404_NOT_FOUND)
 
-    def delete(self, request, pk: int=None):
+    def delete(self, request: HttpRequest, pk: int=None) -> HttpResponse:
 
         """Delete employee data using particular employee id or all data of employee
         Args:

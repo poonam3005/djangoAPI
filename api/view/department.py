@@ -3,12 +3,13 @@ from api.serializers.department import DepartmentSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from django.http import HttpRequest, HttpResponse
 
 
 # Create your views here.
 
 class Departments(APIView):
-    def post(self, request):
+    def post(self, request: HttpRequest) -> HttpResponse:
 
         """Insert the department data
         Args:
@@ -49,7 +50,7 @@ class Departments(APIView):
             content = {"please enter valid id"}
             return Response(content, status=status.HTTP_404_NOT_FOUND)
 
-    def put(self, request, pk: int=None):
+    def put(self, request: HttpRequest, pk: int=None) -> HttpResponse:
 
         """Update the department data using particular id
         Args:
@@ -72,7 +73,7 @@ class Departments(APIView):
             content = {"please enter valid id"}
             return Response(content, status=status.HTTP_404_NOT_FOUND)
 
-    def delete(self, request, pk: int=None):
+    def delete(self, request: HttpRequest, pk: int=None) -> HttpResponse:
 
         """Delete department data using particular department id or all data of department
         Args:
