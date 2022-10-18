@@ -13,8 +13,6 @@ class EmployeeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class EmployeeSerializer1(serializers.ModelSerializer):
-    # company = CompanySerializer()
-    # department = DepartmentSerializer()
 
     class Meta:
         model = TEmployee
